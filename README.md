@@ -1,4 +1,4 @@
-# elevator_simulator
+# Elevator Simulator
 
 ## Project setup
 ```
