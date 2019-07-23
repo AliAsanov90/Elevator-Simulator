@@ -1,15 +1,32 @@
 <template>
-  <div>
-    Building
+  <div class="building">
+    <Floor
+      v-for="floor in reversedFloors"
+      :key="floor"
+      :floorNum="floor"
+    />
+    <Elevator />
   </div>
 </template>
 
 <script>
-export default {
+import { mapGetters } from 'vuex'
+import Floor from './Floor'
+import Elevator from './Elevator'
 
+export default {
+  components: {
+    Floor,
+    Elevator
+  },
+  computed: {
+    ...mapGetters([
+      'reversedFloors'
+    ])
+  }
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  @import '../../assets/sass/components/building/_building.scss';
 </style>

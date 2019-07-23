@@ -10,12 +10,6 @@ export default {
 }
 </script>
 
-<style scoped>
-  .floor-indicator {
-    border: 1px solid gray;
-    padding: 10px;
-    font-size: 30px;
-    font-weight: bold;
-    color: red;
-  }
+<style lang="scss" scoped>
+  @import '../../assets/sass/components/controlPanel/_floor-indicator.scss';
 </style>

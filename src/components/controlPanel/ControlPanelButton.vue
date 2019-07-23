@@ -10,7 +10,6 @@
   </div>
 </template>
 
-// Javascript
 <script>
 export default {
   props: {
@@ -19,18 +18,6 @@ export default {
 }
 </script>
 
-// CSS styling
-<style scoped>
-  .button {
-    width: 40px;
-    height: 40px;
-    border: none;
-    border-radius: 50%;
-    font-size: 16px;
-    font-weight: bold;
-  }
-
-  .active-button {
-    background-color: yellow;
-  }
+<style lang="scss" scoped>
+  @import '../../assets/sass/components/controlPanel/_control-panel-button.scss';
 </style>

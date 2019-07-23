@@ -1,0 +1,17 @@
+.doors {
+  width: 60px;
+  height: 70px;
+  display: flex;
+
+  .door {
+    width: 50%;
+    height: 100%;
+    border: 1px solid #000;
+    background-color: lightgreen;
+  }
+
+  // .door:last-child {
+
+  // }
+}
+
