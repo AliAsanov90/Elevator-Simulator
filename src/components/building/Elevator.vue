@@ -2,21 +2,46 @@
   <div
     class="elevator"
     :style="{
-      bottom: (startFloor - 1) + '00px',
-      transition: ((startFloor - 1) * 2) + 's'
+      bottom: (nextFloors[0] - 1) + '00px',
+      transition: (prevNextDifference * secondsPerFloor) + 's'
     }"
+    @transitionend="onElevatorStop"
   >
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
+  data() {
+    return {
+      secondsPerFloor: 2
+    }
+  },
   computed: {
     ...mapState([
-      'startFloor'
+      'prevFloor',
+      'nextFloors',
+      'direction'
+    ]),
+    ...mapGetters([
+      'prevNextDifference'
     ])
+  },
+  methods: {
+    ...mapActions([
+      'removeFloor',
+      'defineDirection'
+    ]),
+    onElevatorStop(e) {
+      this.defineDirection()
+      console.log('Going: ' + this.direction)
+
+      this.removeFloor(this.nextFloors[0])
+      console.log('Previous: ' + this.prevFloor)
+      console.log('Next: ' + this.nextFloors)
+    }
   }
 }
 </script>

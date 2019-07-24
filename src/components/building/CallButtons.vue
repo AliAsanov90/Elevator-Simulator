@@ -36,11 +36,12 @@ export default {
   },
   methods: {
     ...mapActions([
-      'addCurrentFloor'
+      'addCurrentFloor',
+      'defineDirection'
     ]),
     callElevator(direction) {
       this.addCurrentFloor({ direction, floor: this.floorNum })
-      console.log(this.nextFloors)
+      console.log('added new floor: ' + this.nextFloors)
     }
   }
 }
