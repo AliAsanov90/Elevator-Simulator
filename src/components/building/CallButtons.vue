@@ -31,17 +31,20 @@ export default {
   },
   computed: {
     ...mapState([
-      'nextFloors'
+      'nextFloors',
+      'prevFloor',
+      'direction'
     ])
   },
   methods: {
     ...mapActions([
-      'addCurrentFloor',
-      'defineDirection'
+      'addCurrentFloor'
+      // 'defineDirection'
     ]),
     callElevator(direction) {
       this.addCurrentFloor({ direction, floor: this.floorNum })
-      console.log('added new floor: ' + this.nextFloors)
+      // console.log(this.nextFloors.map(el => el.floor))
+      // console.log(this.floorNum)
     }
   }
 }

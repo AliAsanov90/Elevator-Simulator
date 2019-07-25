@@ -1,9 +1,10 @@
 <template>
   <div
     class="elevator"
+    ref="elevator"
     :style="{
-      bottom: (nextFloors[0] - 1) + '00px',
-      transition: (prevNextDifference * secondsPerFloor) + 's'
+      bottom: calcBottom,
+      transition: ((prevNextDifference * secondsPerFloor) || 2) + 's'
     }"
     @transitionend="onElevatorStop"
   >
@@ -23,25 +24,49 @@ export default {
     ...mapState([
       'prevFloor',
       'nextFloors',
-      'direction'
+      'direction',
+      'elevPosition'
     ]),
     ...mapGetters([
       'prevNextDifference'
-    ])
+    ]),
+    nextFloor() {
+      return this.nextFloors[0].floor
+    },
+    calcBottom() {
+      const floorNumbers = this.nextFloors.map(el => el.floor)
+      const len = this.nextFloors.length
+      if (len > 1) {
+        for (let i = 0; i < len; i++) {
+          if (floorNumbers[i] === floorNumbers[i + 1]) {
+            this.removeFloor(this.nextFloors[i])
+          }
+        }
+      }
+      return (this.nextFloors[0].floor - 1) + '00px'
+    }
   },
   methods: {
     ...mapActions([
       'removeFloor',
-      'defineDirection'
+      'defineDirection',
+      'getElevPosition'
     ]),
     onElevatorStop(e) {
-      this.defineDirection()
-      console.log('Going: ' + this.direction)
-
       this.removeFloor(this.nextFloors[0])
-      console.log('Previous: ' + this.prevFloor)
-      console.log('Next: ' + this.nextFloors)
+      // this.nextFloors.forEach(el => console.log(el.direction, el.floor))
+      // console.log(this.prevFloor.floor, this.prevFloor.direction)
+      // console.log(this.nextFloors)
+
+      this.defineDirection()
+      // console.log(this.direction)
+      // console.log('floors: ' + this.nextFloors.map(el => el.floor))
+      // console.log(this.$refs.elevator.offsetTop)
     }
+  },
+  updated() {
+    this.getElevPosition(this.$refs.elevator.offsetTop)
+    console.log(this.elevPosition)
   }
 }
 </script>

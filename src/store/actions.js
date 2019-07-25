@@ -7,5 +7,8 @@ export default {
   },
   removeFloor: ({ commit }, payload) => {
     commit('removeCurrFloor', payload)
+  },
+  getElevPosition: ({ commit }, payload) => {
+    commit('getElevPosition', payload)
   }
 }
