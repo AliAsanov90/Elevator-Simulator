@@ -1,9 +1,20 @@
 .panel {
+  // display: flex;
+  // justify-content: space-around;
+  width: 200px;
+
+  .indicators {
+    width: 140px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+  }
+
   .control-panel {
     width: 140px;
     height: 200px;
     border: 1px solid gray;
-    margin-top: 50px;
+    margin-top: 20px;
     padding: 10px;
   
     .control-buttons {

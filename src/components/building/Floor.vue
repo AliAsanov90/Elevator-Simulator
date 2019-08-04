@@ -1,8 +1,9 @@
 <template>
   <div class="floor">
-    <Doors />
+    <Doors :floorNum="floorNum" />
     <CallButtons
       :floorNum="floorNum"
+      @elevCalled="passElevCalled"
     />
   </div>
 </template>
@@ -18,10 +19,11 @@ export default {
   },
   props: {
     floorNum: Number
+  },
+  methods: {
+    passElevCalled() {
+      this.$emit('elevCalled')
+    }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import '../../assets/sass/components/building/_floor.scss';
-</style>

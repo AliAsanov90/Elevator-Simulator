@@ -1,12 +1,12 @@
 <template>
   <div
     class="elevator"
-    ref="elevator"
     :style="{
       bottom: calcBottom,
-      transition: ((prevNextDifference * secondsPerFloor) || 2) + 's'
+      transition: (prevNextDifference * secondsPerFloor) + 's'
     }"
     @transitionend="onElevatorStop"
+    @transitionstart="onElevatorStart"
   >
   </div>
 </template>
@@ -25,7 +25,9 @@ export default {
       'prevFloor',
       'nextFloors',
       'direction',
-      'elevPosition'
+      'elevPosition',
+      'passedFloor',
+      'isElevCalled'
     ]),
     ...mapGetters([
       'prevNextDifference'
@@ -50,27 +52,45 @@ export default {
     ...mapActions([
       'removeFloor',
       'defineDirection',
-      'getElevPosition'
+      'getElevPosition',
+      'elevStartedTime',
+      'toggleElevCalled',
+      'ifPassedRequest',
+      'getElevPositionOnStop'
     ]),
     onElevatorStop(e) {
-      this.removeFloor(this.nextFloors[0])
-      // this.nextFloors.forEach(el => console.log(el.direction, el.floor))
-      // console.log(this.prevFloor.floor, this.prevFloor.direction)
-      // console.log(this.nextFloors)
-
+      console.log(this.elevPosition)
+      this.getElevPositionOnStop(this.elevPosition)
+      if (this.nextFloors[0].direction !== '') {
+        setTimeout(() => {
+          this.removeFloor(this.nextFloors[0])
+          this.defineDirection()
+        }, 5000)
+      } else {
+        this.removeFloor(this.nextFloors[0])
+        this.defineDirection('up')
+      }
+    },
+    onElevatorStart(e) {
+      setInterval(() => {
+        this.getElevPosition(this.$el.offsetTop)
+        this.ifPassedRequest(1)
+      }, 100)
       this.defineDirection()
-      // console.log(this.direction)
-      // console.log('floors: ' + this.nextFloors.map(el => el.floor))
-      // console.log(this.$refs.elevator.offsetTop)
     }
   },
-  updated() {
-    this.getElevPosition(this.$refs.elevator.offsetTop)
-    console.log(this.elevPosition)
+  watch: {
+    isElevCalled: function() {
+      if (this.isElevCalled) {
+        this.getElevPosition(this.$el.offsetTop)
+        this.toggleElevCalled(false)
+      }
+    },
+    nextFloors() {
+      if (this.nextFloors[0].direction === '') {
+        this.defineDirection('up')
+      }
+    }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import '../../assets/sass/components/building/_elevator.scss';
-</style>

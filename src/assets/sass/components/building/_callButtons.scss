@@ -27,7 +27,11 @@
     border-top: 10px solid black;
   }
 
-  .clicked {
-    background-color: red;
+  .clicked-up {
+    border-bottom-color: red;
+  }
+
+  .clicked-down {
+    border-top-color: red;
   }
 }

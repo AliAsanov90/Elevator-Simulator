@@ -1,6 +1,10 @@
 <template>
   <div class="panel">
-    <FloorIndicator />
+    <div class="indicators">
+      <FloorIndicator />
+      <DirectionIndicator direction="up" v-if="direction === 'up'" />
+      <DirectionIndicator direction="down" v-if="direction === 'down'" />
+    </div>
 
     <div class="control-panel">
       <ul class="control-buttons">
@@ -9,9 +13,7 @@
           :key="index"
           class="control-button"
         >
-          <ControlPanelButton
-            :floor="floor"
-          >
+          <ControlPanelButton :floor="floor">
             {{ floor }}
           </ControlPanelButton>
         </li>
@@ -21,26 +23,27 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import FloorIndicator from './FloorIndicator.vue'
 import ControlPanelButton from './ControlPanelButton.vue'
+import DirectionIndicator from './DirectionIndicator.vue'
 
 export default {
   components: {
     FloorIndicator,
-    ControlPanelButton
+    ControlPanelButton,
+    DirectionIndicator
   },
   data() {
     return {}
   },
   computed: {
+    ...mapState([
+      'direction'
+    ]),
     ...mapGetters([
       'reversedFloors'
     ])
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import '../../assets/sass/components/controlPanel/_control-panel.scss';
-</style>

@@ -4,8 +4,12 @@
       v-for="floor in reversedFloors"
       :key="floor"
       :floorNum="floor"
+      @elevCalled="getElevPos"
     />
-    <Elevator />
+    <Elevator
+      @updated="onUpdated"
+      ref="elevator"
+    />
   </div>
 </template>
 
@@ -19,14 +23,26 @@ export default {
     Floor,
     Elevator
   },
+  data() {
+    return {
+      pos: null
+    }
+  },
   computed: {
     ...mapGetters([
       'reversedFloors'
     ])
+  },
+  methods: {
+    onUpdated(value) {
+      this.pos = 4
+    },
+    getElevPos() {
+      this.$refs.elevator.updateElevPostition()
+    }
+  },
+  updated() {
+    // console.log(this.pos)
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import '../../assets/sass/components/building/_building.scss';
-</style>

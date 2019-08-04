@@ -1,15 +1,24 @@
 <template>
   <div>
-    <span class="floor-indicator">2</span>
+    <span class="floor-indicator">
+      {{ elevPosition }}
+    </span>
   </div>
 </template>
 
 <script>
-export default {
+import { mapState } from 'vuex'
 
+export default {
+  data() {
+    return {
+      currentFloor: this.elevPosition
+    }
+  },
+  computed: {
+    ...mapState([
+      'elevPosition'
+    ])
+  }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import '../../assets/sass/components/controlPanel/_floor-indicator.scss';
-</style>

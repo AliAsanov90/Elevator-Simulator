@@ -8,6 +8,11 @@
 @import './components/controlPanel/control-panel';
 @import './components/controlPanel/control-panel-button';
 @import './components/controlPanel/floor-indicator';
+@import './components/controlPanel/direction-indicator';
 
 // building
 @import './components/building/building';
+@import './components/building/callButtons';
+@import './components/building/doors';
+@import './components/building/elevator';
+@import './components/building/floor';
