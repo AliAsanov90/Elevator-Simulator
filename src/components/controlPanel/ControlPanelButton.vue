@@ -30,7 +30,8 @@ export default {
       'direction',
       'hasPassed',
       'elevPosition',
-      'elevPositionOnStop'
+      'elevPositionOnStop',
+      'isDoorClosed'
     ])
   },
   watch: {
@@ -49,20 +50,43 @@ export default {
     ]),
     callElevator() {
       this.clicked = true
+      // If elevator is on 1st floor and button of 1st floor was called
+      if ((this.floor === 1) && (this.prevFloor.floor === 1) && (this.elevPosition === 1)) {
+        this.toggleElevCalled(true)
+        this.clicked = false
+        return
+      }
       // Add this new elevator call
-      setTimeout(() => {
-        this.addCurrentFloor({ floor: this.floor, hasPassed: this.hasPassed })
-        // Log
-        this.nextFloors.map(el => {
-          console.log(`
-            Floor: ${el.floor},
-            Direction: ${el.direction},
-            Passed: ${el.hasPassed}
-          `)
-        })
-        console.log('.........................')
-        // console.log(this.elevPosition)
-      }, 10)
+      // If doors are not closed yet, wait
+      if (!this.isDoorClosed) {
+        setTimeout(() => {
+          this.addCurrentFloor({ floor: this.floor, hasPassed: this.hasPassed })
+          this.nextFloors.map(el => {
+            console.log(`
+              Floor: ${el.floor},
+              Direction: ${el.direction},
+              Passed: ${el.hasPassed}
+            `)
+          })
+          console.log('.........................')
+        }, 4700)
+        // return
+      } else {
+        // Doors are closed now, add new floor
+        setTimeout(() => {
+          this.addCurrentFloor({ floor: this.floor, hasPassed: this.hasPassed })
+          // Log
+          this.nextFloors.map(el => {
+            console.log(`
+              Floor: ${el.floor},
+              Direction: ${el.direction},
+              Passed: ${el.hasPassed}
+            `)
+          })
+          console.log('.........................')
+          // console.log(this.elevPosition)
+        }, 10)
+      }
       // Toggle Elevator calling
       this.toggleElevCalled(true)
       // Find out whether Eleavator has passed or not

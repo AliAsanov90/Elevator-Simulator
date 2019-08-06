@@ -22,5 +22,8 @@ export default {
   },
   getElevPositionOnStop: ({ commit }, payload) => {
     commit('getElevPositionOnStop', payload)
+  },
+  doorClosed: ({ commit }, payload) => {
+    commit('doorClosed', payload)
   }
 }

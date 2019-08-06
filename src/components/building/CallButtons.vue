@@ -37,7 +37,9 @@ export default {
       'prevFloor',
       'direction',
       'hasPassed',
-      'elevPositionOnStop'
+      'elevPositionOnStop',
+      'elevPosition',
+      'isDoorClosed'
     ])
   },
   watch: {
@@ -53,37 +55,49 @@ export default {
       'addCurrentFloor',
       'ifPassedRequest',
       'addNewFloor',
-      'toggleElevCalled'
-      // 'defineDirection'
+      'toggleElevCalled',
+      'getElevPositionOnStop',
+      'removeFloor'
     ]),
     callElevator(direction) {
       direction === 'up' ? this.clickedUp = true : this.clickedDown = true
-      // Add this new elevator call
-      setTimeout(() => {
-        // console.log(this.hasPassed)
-        this.addCurrentFloor({ direction, floor: this.floorNum, hasPassed: this.hasPassed })
-        this.nextFloors.map(el => {
-          console.log(`
-            Floor: ${el.floor},
-            Direction: ${el.direction},
-            Passed: ${el.hasPassed}
-          `)
-        })
-        // console.log(this.direction)
-        console.log('.........................')
-      }, 10)
-      // setTimeout(() => {
-      // }, 50)
-      // Get time at which elevator was called
-      // setTimeout(() => {
-      //   const now = new Date().getSeconds()
-      //   this.ifPassedRequest({ яtime: now, floor: tяhis.floorNuяm })
-      // }, 200)
+      // If elevator is on 1st floor and button of 1st floor was called
+      if ((this.floorNum === 1) && (this.prevFloor.floor === 1) && (this.elevPosition === 1)) {
+        this.toggleElevCalled(true)
+        this.clickedUp = false
+        return
+      }
+
+      if (!this.isDoorClosed) {
+        setTimeout(() => {
+          this.addCurrentFloor({ direction, floor: this.floorNum, hasPassed: this.hasPassed })
+          this.nextFloors.map(el => {
+            console.log(`
+              Floor: ${el.floor},
+              Direction: ${el.direction},
+              Passed: ${el.hasPassed}
+            `)
+          })
+          console.log('.........................')
+        }, 4700)
+        // return
+      } else {
+        setTimeout(() => {
+          this.addCurrentFloor({ direction, floor: this.floorNum, hasPassed: this.hasPassed })
+          this.nextFloors.map(el => {
+            console.log(`
+              Floor: ${el.floor},
+              Direction: ${el.direction},
+              Passed: ${el.hasPassed}
+            `)
+          })
+          console.log('.........................')
+        }, 10)
+      }
       this.toggleElevCalled(true)
       setTimeout(() => {
         this.ifPassedRequest({ floor: this.floorNum })
       }, 5)
-      // this.defineDirection()
     }
   }
 }

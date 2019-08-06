@@ -1,6 +1,14 @@
 
 export default {
-  addNextFloor: (state, { floor, direction = state.direction, hasPassed }) => {
+  addNextFloor: (state, { floor, direction = null, hasPassed }) => {
+    if (!direction) {
+      if (hasPassed) {
+        const isNotBiggest = state.nextFloors.some(el => el.floor > floor)
+        direction = isNotBiggest ? 'down' : 'up'
+      } else {
+        direction = state.direction
+      }
+    }
     if (state.nextFloors[0].direction === '') {
       state.prevFloor = state.nextFloors[0]
     }
@@ -46,14 +54,7 @@ export default {
   },
   // Find out direction - Up or Down
   setDirection: (state, direction = null) => {
-    if (direction) {
-      state.direction = direction
-    } else {
-      state.direction = state.prevFloor.floor < state.nextFloors[0].floor ? 'up' : 'down'
-    }
-    // console.log('Previous Floor: ' + state.prevFloor.floor)
-    // console.log('Next Floor: ' + state.nextFloors[0].floor)
-    // console.log('Direction: ' + state.direction)
+    state.direction = state.prevFloor.floor < state.nextFloors[0].floor ? 'up' : 'down'
   },
   // When elevator stops, remove current floor from order
   removeCurrFloor: (state, { floor, direction, hasPassed }) => {
@@ -77,7 +78,7 @@ export default {
     if (state.elevOffset >= 290 && state.elevOffset < 380) state.elevPosition = 2
     if (state.elevOffset >= 380 && state.elevOffset <= 398) state.elevPosition = 1
     if (((state.direction === 'up') && (floor < state.elevPosition)) ||
-      ((state.direction === 'down') && (floor > state.elevPosition))) {
+      ((state.direction === 'down') && (floor >= state.elevPosition))) {
       state.hasPassed = true
     } else {
       state.hasPassed = false
@@ -85,9 +86,15 @@ export default {
   },
   toggleElevCalled: (state, boolean) => {
     state.isElevCalled = boolean
+    // console.log(boolean)
   },
   getElevPositionOnStop: (state, elevPosition) => {
     state.elevPositionOnStop = elevPosition
+    // console.log('triggered!!!')
+    // console.log(state.elevPosition)
+  },
+  doorClosed: (state, boolean) => {
+    state.isDoorClosed = boolean
   }
 }
 

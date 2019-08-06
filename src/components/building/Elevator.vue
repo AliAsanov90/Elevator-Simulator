@@ -45,6 +45,9 @@ export default {
           }
         }
       }
+      // if (this.nextFloors[0].floor === this.prevFloor.floor) {
+      //   this.removeFloor(this.nextFloors[0])
+      // }
       return (this.nextFloors[0].floor - 1) + '00px'
     }
   },
@@ -59,7 +62,7 @@ export default {
       'getElevPositionOnStop'
     ]),
     onElevatorStop(e) {
-      console.log(this.elevPosition)
+      // console.log(this.elevPosition)
       this.getElevPositionOnStop(this.elevPosition)
       if (this.nextFloors[0].direction !== '') {
         setTimeout(() => {
@@ -68,7 +71,7 @@ export default {
         }, 5000)
       } else {
         this.removeFloor(this.nextFloors[0])
-        this.defineDirection('up')
+        this.defineDirection()
       }
     },
     onElevatorStart(e) {
@@ -85,12 +88,16 @@ export default {
         this.getElevPosition(this.$el.offsetTop)
         this.toggleElevCalled(false)
       }
-    },
-    nextFloors() {
-      if (this.nextFloors[0].direction === '') {
-        this.defineDirection('up')
-      }
     }
+    // nextFloors() {
+    //   if (this.nextFloors[0].direction === '') {
+    //     this.defineDirection('up')
+    //   }
+    // }
+  },
+  mounted() {
+    // console.log('Previous Floor: ' + this.prevFloor.floor)
+    // console.log('Next Floors: ' + this.nextFloors[0].floor)
   }
 }
 </script>
