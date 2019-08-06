@@ -2,6 +2,7 @@
   <div id="app">
     <ControlPanel />
     <Building />
+    <div class="ground"></div>
   </div>
 </template>
 

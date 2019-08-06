@@ -1,12 +1,12 @@
 .elevator {
   width: 100px;
   height: 100px;
-  background-color: red;
+  background-color: #946E24;
   position: absolute;
   bottom: 0px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: -1;
+  // z-index: -1;
 
   transition: bottom 2s linear;
   transition-timing-function: linear;

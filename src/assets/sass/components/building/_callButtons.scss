@@ -1,6 +1,6 @@
 .call-buttons {
   position: absolute;
-  left: 270px;
+  left: 250px;
   bottom: 30px;
   width: 30px;
   height: 30px;
@@ -8,30 +8,60 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: lightgray;
+  padding: 20px 0;
+  border-radius: 10%;
+  background-color: #B4B2A7;
 
   .arrow-up {
     width: 0; 
     height: 0; 
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 10px solid black;
+    border-left: 12px solid #B4B2A7;
+    border-right: 12px solid #B4B2A7;
+    border-bottom: 12px solid #5A5853;
+    border-top: none;
     margin-bottom: 5px;
+    outline: none;
+    cursor: pointer;
+
+    position: relative;
+    top: 0;
+
+    &:active {
+      top: 2px;
+    }
+    
+    &:hover {
+      opacity: 0.7;
+    }
   }
   
   .arrow-down {
     width: 0; 
     height: 0; 
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid black;
+    border-left: 12px solid #B4B2A7;
+    border-right: 12px solid #B4B2A7;
+    border-top: 12px solid #5A5853;
+    border-bottom: none;
+    outline: none;
+    cursor: pointer;
+
+    position: relative;
+    top: 0;
+
+    &:active {
+      top: 2px;
+    }
+    
+    &:hover {
+      opacity: 0.7;
+    }
   }
 
   .clicked-up {
-    border-bottom-color: red;
+    border-bottom-color: #FEDF20;
   }
 
   .clicked-down {
-    border-top-color: red;
+    border-top-color: #FEDF20;
   }
 }

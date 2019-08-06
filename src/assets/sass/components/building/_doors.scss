@@ -3,13 +3,14 @@
   height: 70px;
   display: flex;
   justify-content: space-between;
-  border: 1px solid black;
+  border: 1px solid #5A5853;
+  z-index: 1;
 
   .door {
     width: 50%;
     height: 100%;
-    border: 1px solid #000;
-    background-color: lightgreen;
+    border: 1px solid #5A5853;
+    background-color: #9F9B93;
     transition: width 1s ease-out;
   }
 

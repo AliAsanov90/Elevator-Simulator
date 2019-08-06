@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <span class="floor-indicator">
-      {{ elevPosition }}
-    </span>
-  </div>
+  <!-- <div> -->
+  <span class="floor-indicator">
+    {{ elevPosition }}
+  </span>
+  <!-- </div> -->
 </template>
 
 <script>
