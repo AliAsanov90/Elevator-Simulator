@@ -1,10 +1,7 @@
 <template>
   <div class="floor">
     <Doors :floorNum="floorNum" />
-    <CallButtons
-      :floorNum="floorNum"
-      @elevCalled="passElevCalled"
-    />
+    <CallButtons :floorNum="floorNum" />
   </div>
 </template>
 
@@ -19,11 +16,6 @@ export default {
   },
   props: {
     floorNum: Number
-  },
-  methods: {
-    passElevCalled() {
-      this.$emit('elevCalled')
-    }
   }
 }
 </script>

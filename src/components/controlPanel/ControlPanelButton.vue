@@ -25,9 +25,7 @@ export default {
   },
   computed: {
     ...mapState([
-      'nextFloors',
       'prevFloor',
-      'direction',
       'hasPassed',
       'elevPosition',
       'elevPositionOnStop',
@@ -36,6 +34,7 @@ export default {
   },
   watch: {
     elevPositionOnStop() {
+      // When elev arrived to this floor, remove button highlighting
       if (this.elevPositionOnStop === this.floor) {
         this.clicked = false
       }
@@ -45,32 +44,32 @@ export default {
     ...mapActions([
       'addCurrentFloor',
       'ifPassedRequest',
-      'addNewFloor',
       'toggleElevCalled'
     ]),
     callElevator() {
+      // Highlight the button
       this.clicked = true
       // If elevator is on 1st floor and button of 1st floor was called
       if ((this.floor === 1) && (this.prevFloor.floor === 1) && (this.elevPosition === 1)) {
-        this.toggleElevCalled(true)
-        this.clicked = false
-        return
+        this.toggleElevCalled(true) // Notify that elev was called to open the doors
+        this.clicked = false // no need to highlight the button
+        return // just open doors, no need to add floor to the order
       }
-      // Add this new elevator call
-      // If doors are not closed yet, wait
-      if (!this.isDoorClosed) {
+      // If elev is on the 1st floor and doors are not closed yet,
+      // wait 5 sec till doors are closed, and then add new floor to the order
+      if (!this.isDoorClosed && (this.elevPosition === 1)) {
         setTimeout(() => {
           this.addCurrentFloor({ floor: this.floor, hasPassed: this.hasPassed })
         }, 4700)
       } else {
-        // Doors are closed now, add new floor
+        // Add new floor immediately
         setTimeout(() => {
           this.addCurrentFloor({ floor: this.floor, hasPassed: this.hasPassed })
         }, 10)
       }
-      // Toggle Elevator calling
+      // Toggle Elevator calling to notify other components
       this.toggleElevCalled(true)
-      // Find out whether Eleavator has passed or not
+      // Find out whether Elevator has passed THIS floor or not
       setTimeout(() => {
         this.ifPassedRequest({ floor: this.floor })
       }, 5)

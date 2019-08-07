@@ -4,12 +4,8 @@
       v-for="floor in reversedFloors"
       :key="floor"
       :floorNum="floor"
-      @elevCalled="getElevPos"
     />
-    <Elevator
-      @updated="onUpdated"
-      ref="elevator"
-    />
+    <Elevator />
   </div>
 </template>
 
@@ -23,23 +19,10 @@ export default {
     Floor,
     Elevator
   },
-  data() {
-    return {
-      pos: null
-    }
-  },
   computed: {
     ...mapGetters([
       'reversedFloors'
     ])
-  },
-  methods: {
-    onUpdated(value) {
-      this.pos = 4
-    },
-    getElevPos() {
-      this.$refs.elevator.updateElevPostition()
-    }
   }
 }
 </script>

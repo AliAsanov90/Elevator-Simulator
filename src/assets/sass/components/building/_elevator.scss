@@ -7,7 +7,7 @@
   left: 50%;
   transform: translateX(-50%);
 
+  // For smooth elevator motion
   transition: bottom 2s linear;
-  transition-timing-function: linear;
 }
 

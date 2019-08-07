@@ -10,11 +10,6 @@
 export default {
   props: {
     direction: String
-  },
-  data() {
-    return {
-      arrowColor: '#00b894'
-    }
   }
 }
 </script>

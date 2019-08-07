@@ -25,7 +25,8 @@
 
     position: relative;
     top: 0;
-
+    
+    // Make PRESS effect when button is clicked 
     &:active {
       top: 2px;
     }
@@ -48,6 +49,7 @@
     position: relative;
     top: 0;
 
+    // Make PRESS effect when button is clicked 
     &:active {
       top: 2px;
     }
@@ -56,11 +58,12 @@
       opacity: 0.7;
     }
   }
-
+  
+  // Change color of "UP" button when clicked
   .clicked-up {
     border-bottom-color: #FEDF20;
   }
-
+  // Change color of "DOWN" button when clicked
   .clicked-down {
     border-top-color: #FEDF20;
   }

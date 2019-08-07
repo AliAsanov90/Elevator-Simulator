@@ -15,8 +15,8 @@
 
   box-shadow: 0 3px 3px 0 #8690A7;
 
+  // PRESS effect on click
   &:active {
-    /** Remove 3D Block Effect on Click **/
     box-shadow: none;
     top: 3px;
     margin-bottom: 0;
@@ -26,7 +26,7 @@
     opacity: 0.8;
   }
 }
-
+// Change color when button clicked till elevator comes
 .active-button {
   background-color: yellow;
 }

@@ -14,6 +14,7 @@
     transition: width 1s ease-out;
   }
 
+  // Open doors by decreasing the width
   .door-opened {
     width: 0%;
   }

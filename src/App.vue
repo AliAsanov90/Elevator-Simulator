@@ -18,7 +18,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import './assets/sass/components/_app.scss';
-</style>
