@@ -34,9 +34,6 @@ export default {
     ControlPanelButton,
     DirectionIndicator
   },
-  data() {
-    return {}
-  },
   computed: {
     ...mapState([
       'direction'

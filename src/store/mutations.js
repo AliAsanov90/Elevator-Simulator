@@ -86,87 +86,11 @@ export default {
   },
   toggleElevCalled: (state, boolean) => {
     state.isElevCalled = boolean
-    // console.log(boolean)
   },
   getElevPositionOnStop: (state, elevPosition) => {
     state.elevPositionOnStop = elevPosition
-    // console.log('triggered!!!')
-    // console.log(state.elevPosition)
   },
   doorClosed: (state, boolean) => {
     state.isDoorClosed = boolean
   }
 }
-
-// addNextFloor: (state, { floor, direction }) => {
-//   if (state.direction === direction) {
-//     if (state.nextFloors.every(floorEl => floorEl > floor) && state.direction === 'up') {
-//       state.nextFloors = [floor, ...state.nextFloors]
-//     } else {
-//       state.nextFloors = [...state.nextFloors, floor]
-//     }
-//   } else {
-//     if (state.nextFloors.every(floorEl => floorEl > floor)) {
-//       state.nextFloors = [...state.nextFloors, floor]
-//     } else {
-//       state.nextFloors = [floor, ...state.nextFloors]
-//     }
-//   }
-// }
-
-// if (state.passedFloor) {
-//   state.nextFloors = [...state.nextFloors, { floor, direction, passed: state.passedFloor }]
-// } else {
-//   const allFloors = [...state.nextFloors, { floor, direction, passed: state.passedFloor }]
-//   const goingUp = allFloors
-//     .filter(el => el.direction === 'up')
-//     .sort((a, b) => a.floor - b.floor)
-//   const goingDown = allFloors
-//     .filter(el => el.direction === 'down')
-//     .sort((a, b) => b.floor - a.floor)
-//   state.nextFloors = state.direction === 'up' ? [...goingUp, ...goingDown] : [...goingDown, ...goingUp]
-// }
-
-// const sortFunc = (a, b) => {
-//   if (((state.direction === 'up') && (direction === 'up')) ||
-//     ((state.direction === 'down') && (direction === 'up'))) {
-//     return a.floor - b.floor
-//   } else if (((state.direction === 'down') && (direction === 'down')) ||
-//     ((state.direction === 'up') && (direction === 'down'))) {
-//     return b.floor - a.floor
-//   }
-// }
-
-// const allFloors = [...state.nextFloors, { floor, direction, hasPassed }]
-//       .filter(el => el.direction !== '')
-//     // Floors that are SAME direction and NOT been passed
-//     const firstPart = allFloors
-//       .filter(el => el.direction === state.direction && el.hasPassed === false)
-//       .sort((a, b) => {
-//         if (state.direction === 'up') {
-//           return a.floor - b.floor
-//         } else {
-//           return b.floor - a.floor
-//         }
-//       })
-//     // Floors that are OPPOSITE direction
-//     const secondPart = allFloors
-//       .filter(el => el.direction !== state.direction)
-//       .sort((a, b) => {
-//         if (state.direction === 'up') {
-//           return a.floor - b.floor
-//         } else {
-//           return b.floor - a.floor
-//         }
-//       })
-//     // Floors that SAME direction but were PASSED
-//     const thirdPart = allFloors
-//       .filter(el => el.direction === state.direction && el.hasPassed === true)
-//       .sort((a, b) => {
-//         if (state.direction === 'up') {
-//           return a.floor - b.floor
-//         } else {
-//           return b.floor - a.floor
-//         }
-//       })
-//     state.nextFloors = [...firstPart, ...secondPart, ...thirdPart]

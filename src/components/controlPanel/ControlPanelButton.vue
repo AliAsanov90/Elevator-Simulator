@@ -61,30 +61,11 @@ export default {
       if (!this.isDoorClosed) {
         setTimeout(() => {
           this.addCurrentFloor({ floor: this.floor, hasPassed: this.hasPassed })
-          this.nextFloors.map(el => {
-            console.log(`
-              Floor: ${el.floor},
-              Direction: ${el.direction},
-              Passed: ${el.hasPassed}
-            `)
-          })
-          console.log('.........................')
         }, 4700)
-        // return
       } else {
         // Doors are closed now, add new floor
         setTimeout(() => {
           this.addCurrentFloor({ floor: this.floor, hasPassed: this.hasPassed })
-          // Log
-          this.nextFloors.map(el => {
-            console.log(`
-              Floor: ${el.floor},
-              Direction: ${el.direction},
-              Passed: ${el.hasPassed}
-            `)
-          })
-          console.log('.........................')
-          // console.log(this.elevPosition)
         }, 10)
       }
       // Toggle Elevator calling

@@ -40,9 +40,6 @@ export default {
     getElevPos() {
       this.$refs.elevator.updateElevPostition()
     }
-  },
-  updated() {
-    // console.log(this.pos)
   }
 }
 </script>

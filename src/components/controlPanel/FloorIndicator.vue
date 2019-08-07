@@ -1,9 +1,7 @@
 <template>
-  <!-- <div> -->
   <span class="floor-indicator">
     {{ elevPosition }}
   </span>
-  <!-- </div> -->
 </template>
 
 <script>

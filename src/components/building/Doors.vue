@@ -31,7 +31,6 @@ export default {
     elevPositionOnStop() {
       if (this.floorNum === this.elevPositionOnStop) {
         this.elevStopped = true
-        // console.log(this.elevStopped)
         setTimeout(() => {
           this.elevStopped = false
         }, 4000)
@@ -45,7 +44,6 @@ export default {
         setTimeout(() => {
           if ((this.floorNum === 1) && (this.nextFloors[0].floor === 1)) {
             this.elevStopped = true
-            // console.log(this.floorNum)
             setTimeout(() => {
               this.elevStopped = false
             }, 4000)
@@ -61,19 +59,13 @@ export default {
     onDoorClosed(e) {
       if (!this.elevStopped) {
         setTimeout(() => {
-          // console.log(this.isDoorClosed)
-          // console.log('Doors closed')
           this.doorClosed(true)
-          // console.log(this.isDoorClosed)
         }, 500)
       }
     },
     onDoorOpen() {
       if (this.elevStopped) {
-        // console.log(this.isDoorClosed)
-        // console.log('Doors open')
         this.doorClosed(false)
-        // console.log(this.isDoorClosed)
       }
     }
   }

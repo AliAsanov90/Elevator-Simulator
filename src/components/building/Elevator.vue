@@ -45,9 +45,6 @@ export default {
           }
         }
       }
-      // if (this.nextFloors[0].floor === this.prevFloor.floor) {
-      //   this.removeFloor(this.nextFloors[0])
-      // }
       return (this.nextFloors[0].floor - 1) + '00px'
     }
   },
@@ -62,7 +59,6 @@ export default {
       'getElevPositionOnStop'
     ]),
     onElevatorStop(e) {
-      // console.log(this.elevPosition)
       this.getElevPositionOnStop(this.elevPosition)
       if (this.nextFloors[0].direction !== '') {
         setTimeout(() => {
@@ -89,15 +85,6 @@ export default {
         this.toggleElevCalled(false)
       }
     }
-    // nextFloors() {
-    //   if (this.nextFloors[0].direction === '') {
-    //     this.defineDirection('up')
-    //   }
-    // }
-  },
-  mounted() {
-    // console.log('Previous Floor: ' + this.prevFloor.floor)
-    // console.log('Next Floors: ' + this.nextFloors[0].floor)
   }
 }
 </script>
