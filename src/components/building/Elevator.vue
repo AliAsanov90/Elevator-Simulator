@@ -17,7 +17,7 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 export default {
   data() {
     return {
-      secondsPerFloor: 2 // time elev passes one floor
+      secondsPerFloor: 2
     }
   },
   computed: {
@@ -39,7 +39,7 @@ export default {
             this.removeFloor(this.nextFloors[i])
           }
         }
-      } // return number of pixels for next elev position
+      }
       return (this.nextFloors[0].floor - 1) + '00px'
     }
   },
@@ -53,16 +53,13 @@ export default {
       'getElevPositionOnStop'
     ]),
     onElevatorStop(e) {
-      // After stop notify about position for doors to open
       this.getElevPositionOnStop(this.elevPosition)
-      // Wait 5 sec till doors are closed, remove current floor from order, define direction
       setTimeout(() => {
         this.removeFloor(this.nextFloors[0])
         this.defineDirection()
       }, 5000)
     },
     onElevatorStart(e) {
-      // Get elev position every 100ms
       setInterval(() => {
         this.getElevPosition(this.$el.offsetTop)
         this.ifPassedRequest(1)
@@ -72,7 +69,6 @@ export default {
   },
   watch: {
     isElevCalled: function() {
-      // Get elev position when elev is called
       if (this.isElevCalled) {
         this.getElevPosition(this.$el.offsetTop)
         this.toggleElevCalled(false)
