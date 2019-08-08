@@ -43,8 +43,7 @@ export default {
       'getElevPosition',
       'toggleElevCalled',
       'ifPassedRequest',
-      'getElevPositionOnStop',
-      'deleteSameAdjacentFloor'
+      'getElevPositionOnStop'
     ]),
     removeSameAdjacentFloor() {
       const floorNumbers = this.nextFloors.map(el => el.floor)

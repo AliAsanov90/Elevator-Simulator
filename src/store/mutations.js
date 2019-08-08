@@ -1,85 +1,74 @@
-
+/* eslint-disable */
 export default {
   addNextFloor: (state, { floor, direction = null, hasPassed }) => {
-    if (!direction) {
-      if (hasPassed) {
-        const isNotBiggest = state.nextFloors.some(el => el.floor > floor)
-        direction = isNotBiggest ? 'down' : 'up'
-      } else {
-        direction = state.direction
+    // Helper Function
+    const sortFunc = (a, b) => {
+      if (direction === 'up') {
+        return a.floor - b.floor
+      } else if (direction === 'down') {
+        return b.floor - a.floor
       }
     }
-    if (state.nextFloors[0].direction === '') {
-      state.prevFloor = state.nextFloors[0]
+    // Define requested direction
+    if (!direction) {
+      const IsFloorNotHighest = state.nextFloors.some(el => el.floor > floor)
+      direction = IsFloorNotHighest ? 'down' : 'up'
     }
-    // Filter out the initial floor from the array
-    const withoutInitial = state.nextFloors.filter(el => el.direction !== '')
+
+    // Exclude Initial floor from array
+    const withoutInitialFloor = state.nextFloors.filter(el => el.direction !== '')
+
     // Filter the old array into 3 separate arrays
-    const firstPart = withoutInitial.filter(el => (el.direction === state.direction) && (el.hasPassed === false))
-    const secondPart = withoutInitial.filter(el => (el.direction !== state.direction))
-    const thirdPart = withoutInitial.filter(el => (el.direction === state.direction) && (el.hasPassed === true))
+    const firstPart = withoutInitialFloor
+      .filter(el => (el.direction === state.direction) && (el.hasPassed === false))
+    const secondPart = withoutInitialFloor
+      .filter(el => (el.direction !== state.direction))
+    const thirdPart = withoutInitialFloor
+      .filter(el => (el.direction === state.direction) && (el.hasPassed === true))
+
     // Add new request to proper array, sort, and combine parts
     if ((direction === state.direction) && (hasPassed === false)) {
       const sortedFirstPart = [...firstPart, { floor, direction, hasPassed }]
-        .sort((a, b) => {
-          if (direction === 'up') {
-            return a.floor - b.floor
-          } else if (direction === 'down') {
-            return b.floor - a.floor
-          }
-        })
+        .sort(sortFunc)
       state.nextFloors = [...sortedFirstPart, ...secondPart, ...thirdPart]
-    } else if (direction !== state.direction) {
+    }
+    else if (direction !== state.direction) {
       const sortedSecondPart = [...secondPart, { floor, direction, hasPassed }]
-        .sort((a, b) => {
-          if (direction === 'up') {
-            return a.floor - b.floor
-          } else if (direction === 'down') {
-            return b.floor - a.floor
-          }
-        })
+        .sort(sortFunc)
       state.nextFloors = [...firstPart, ...sortedSecondPart, ...thirdPart]
-    } else if ((direction === state.direction) && (hasPassed === true)) {
+    }
+    else if ((direction === state.direction) && (hasPassed === true)) {
       const sortedThirdPart = [...thirdPart, { floor, direction, hasPassed }]
-        .sort((a, b) => {
-          if (direction === 'up') {
-            return a.floor - b.floor
-          } else if (direction === 'down') {
-            return b.floor - a.floor
-          }
-        })
+        .sort(sortFunc)
       state.nextFloors = [...firstPart, ...secondPart, ...sortedThirdPart]
     }
-  },
-  setDirection: (state, direction = null) => {
-    state.direction = state.prevFloor.floor < state.nextFloors[0].floor ? 'up' : 'down'
   },
   removeCurrFloor: (state, { floor, direction, hasPassed }) => {
     state.prevFloor = { floor, direction, hasPassed }
     if (state.nextFloors.length) {
       state.nextFloors = state.nextFloors.slice(1)
     }
-    // Add the default floor, if elev visited all requested floors
     if (!state.nextFloors.length) {
       state.nextFloors = [{ floor: 1, direction: '', hasPassed: false }]
     }
   },
   getElevPosition: (state, offset) => {
-    state.elevOffset = offset
+    if (offset >= -2 && offset < 90) state.elevPosition = 5
+    if (offset >= 90 && offset < 190) state.elevPosition = 4
+    if (offset >= 190 && offset < 290) state.elevPosition = 3
+    if (offset >= 290 && offset < 380) state.elevPosition = 2
+    if (offset >= 380 && offset <= 398) state.elevPosition = 1
   },
   ifPassedRequest: (state, { floor }) => {
-    if (state.elevOffset >= -2 && state.elevOffset < 90) state.elevPosition = 5
-    if (state.elevOffset >= 90 && state.elevOffset < 190) state.elevPosition = 4
-    if (state.elevOffset >= 190 && state.elevOffset < 290) state.elevPosition = 3
-    if (state.elevOffset >= 290 && state.elevOffset < 380) state.elevPosition = 2
-    if (state.elevOffset >= 380 && state.elevOffset <= 398) state.elevPosition = 1
-    // Break into separate function
     if (((state.direction === 'up') && (floor < state.elevPosition)) ||
       ((state.direction === 'down') && (floor >= state.elevPosition))) {
       state.hasPassed = true
     } else {
       state.hasPassed = false
     }
+  },
+  setDirection: (state, direction = null) => {
+    state.direction = state.prevFloor.floor < state.nextFloors[0].floor ? 'up' : 'down'
   },
   toggleElevCalled: (state, boolean) => {
     state.isElevCalled = boolean

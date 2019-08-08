@@ -12,7 +12,6 @@ export default {
   }],
   direction: 'up', // current elev direction
   hasPassed: false, // whether elev has passed the floor that's being added to the order
-  elevOffset: 0,
   elevPosition: 1,
   elevPositionOnStop: 0,
   isElevCalled: false,
