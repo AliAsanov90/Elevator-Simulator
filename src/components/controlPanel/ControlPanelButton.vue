@@ -1,7 +1,7 @@
 <template>
   <div>
     <button
-      :class="{ 'active-button': clicked }"
+      :class="{ 'active-button': highlightButton }"
       class="button"
       type="button"
       @click="callElevator"
@@ -20,7 +20,10 @@ export default {
   },
   data() {
     return {
-      clicked: false
+      highlightButton: false,
+      timeDoorClose: 4700,
+      timeDefineHasPassed: 10,
+      timeDefineElevOffset: 5
     }
   },
   computed: {
@@ -34,9 +37,7 @@ export default {
   },
   watch: {
     elevPositionOnStop() {
-      if (this.elevPositionOnStop === this.floor) {
-        this.clicked = false
-      }
+      this.stopHighlightButton()
     }
   },
   methods: {
@@ -45,26 +46,43 @@ export default {
       'ifPassedRequest',
       'toggleElevCalled'
     ]),
+    stopHighlightButton() {
+      if (this.elevPositionOnStop === this.floor) {
+        this.highlightButton = false
+      }
+    },
     callElevator() {
-      this.clicked = true
+      this.toggleElevCalled(true)
+      this.defineHasPassed()
+      this.highlightButton = true
       if ((this.floor === 1) && (this.prevFloor.floor === 1) && (this.elevPosition === 1)) {
-        this.toggleElevCalled(true)
-        this.clicked = false
+        this.openFirstFloor()
         return
       }
       if (!this.isDoorClosed && (this.elevPosition === 1)) {
-        setTimeout(() => {
-          this.addCurrentFloor({ floor: this.floor, hasPassed: this.hasPassed })
-        }, 4700)
+        this.addFloorAfterDoorClosed()
       } else {
-        setTimeout(() => {
-          this.addCurrentFloor({ floor: this.floor, hasPassed: this.hasPassed })
-        }, 10)
+        this.addFloor()
       }
+    },
+    openFirstFloor() {
       this.toggleElevCalled(true)
+      this.highlightButton = false
+    },
+    addFloorAfterDoorClosed() {
+      setTimeout(() => {
+        this.addCurrentFloor({ floor: this.floor, hasPassed: this.hasPassed })
+      }, this.timeDoorClose)
+    },
+    addFloor() {
+      setTimeout(() => {
+        this.addCurrentFloor({ floor: this.floor, hasPassed: this.hasPassed })
+      }, this.timeDefineHasPassed)
+    },
+    defineHasPassed() {
       setTimeout(() => {
         this.ifPassedRequest({ floor: this.floor })
-      }, 5)
+      }, this.timeDefineElevOffset)
     }
   }
 }
