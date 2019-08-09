@@ -9,6 +9,10 @@ export default {
         return b.floor - a.floor
       }
     }
+    // So that difference between previous and next floor in not 0
+    if (state.nextFloors[0].direction === '') {
+      state.prevFloor.floor = 1
+    }
     // Define requested direction
     if (!direction) {
       const IsFloorNotHighest = state.nextFloors.some(el => el.floor > floor)
@@ -44,13 +48,19 @@ export default {
     }
   },
   removeCurrFloor: (state, { floor, direction, hasPassed }) => {
+    const deleteVisitedFloor = () => {
+      if (state.nextFloors.length) {
+        state.nextFloors = state.nextFloors.slice(1)
+      }
+    }
+    const addDefaultFloor = () => {
+      if (!state.nextFloors.length) {
+        state.nextFloors = [{ floor: 1, direction: '', hasPassed: false }]
+      }
+    }
     state.prevFloor = { floor, direction, hasPassed }
-    if (state.nextFloors.length) {
-      state.nextFloors = state.nextFloors.slice(1)
-    }
-    if (!state.nextFloors.length) {
-      state.nextFloors = [{ floor: 1, direction: '', hasPassed: false }]
-    }
+    deleteVisitedFloor()
+    addDefaultFloor()
   },
   getElevPosition: (state, offset) => {
     if (offset >= -2 && offset < 90) state.elevPosition = 5

@@ -56,12 +56,23 @@ export default {
         }
       }
     },
-    onElevatorStop(e) {
-      this.getElevPositionOnStop(this.elevPosition)
+    goToNextAfterDoorClosed() {
       setTimeout(() => {
         this.removeFloor(this.nextFloors[0])
         this.defineDirection()
       }, this.timeWaitDoors)
+    },
+    goToNextFloor() {
+      this.removeFloor(this.nextFloors[0])
+      this.defineDirection()
+    },
+    onElevatorStop(e) {
+      this.getElevPositionOnStop(this.elevPosition)
+      if (this.nextFloors[0].direction !== '') {
+        this.goToNextAfterDoorClosed()
+      } else if (this.nextFloors[0].direction === '') {
+        this.goToNextFloor()
+      }
     },
     onElevatorStart(e) {
       setInterval(() => {
