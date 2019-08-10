@@ -40,14 +40,22 @@ export default {
       'hasPassed',
       'elevPositionOnStop',
       'elevPosition',
-      'isDoorClosed'
+      'isDoorClosed',
+      'nextFloors',
+      'direction'
     ])
   },
   watch: {
     elevPositionOnStop() {
       if (this.elevPositionOnStop === this.floorNum) {
-        this.clickedUp = false
-        this.clickedDown = false
+        if (this.floorNum === 1) this.clickedUp = false
+        if (this.floorNum === 5) this.clickedDown = false
+        if (this.nextFloors.filter(el => el.floor === this.floorNum).length > 1) {
+          this.direction === 'up' ? this.clickedUp = false : this.clickedDown = false
+        } else {
+          this.clickedUp = false
+          this.clickedDown = false
+        }
       }
     }
   },
@@ -55,10 +63,12 @@ export default {
     ...mapActions([
       'addCurrentFloor',
       'ifPassedRequest',
-      'toggleElevCalled'
+      'toggleElevCalled',
+      'defineDirection'
     ]),
     callElevator(direction) {
       this.toggleElevCalled(true)
+      this.defineDirection()
       this.defineHasPassed()
       this.highlightButton(direction)
       if ((this.floorNum === 1) && (this.prevFloor.floor === 1) && (this.elevPosition === 1)) {
@@ -70,6 +80,17 @@ export default {
       } else {
         this.addFloor(direction)
       }
+      setTimeout(() => {
+        this.nextFloors.map(el => {
+          console.log(`
+            Floor: ${el.floor},
+            Direction: ${el.direction},
+            hasPassed: ${el.hasPassed}
+          `)
+        })
+        console.log(`..................`)
+        console.log(`Elev Direction: ${this.direction}`)
+      }, 20)
     },
     highlightButton(direction) {
       direction === 'up' ? this.clickedUp = true : this.clickedDown = true

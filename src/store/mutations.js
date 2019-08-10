@@ -77,8 +77,8 @@ export default {
       state.hasPassed = false
     }
   },
-  setDirection: (state, direction = null) => {
-    state.direction = state.prevFloor.floor < state.nextFloors[0].floor ? 'up' : 'down'
+  setDirection: state => {
+    state.direction = state.prevFloor.floor <= state.nextFloors[0].floor ? 'up' : 'down'
   },
   toggleElevCalled: (state, boolean) => {
     state.isElevCalled = boolean
