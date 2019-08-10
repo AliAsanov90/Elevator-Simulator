@@ -32,7 +32,9 @@ export default {
       'hasPassed',
       'elevPosition',
       'elevPositionOnStop',
-      'isDoorClosed'
+      'isDoorClosed',
+      'nextFloors',
+      'direction'
     ])
   },
   watch: {
@@ -64,6 +66,17 @@ export default {
       } else {
         this.addFloor()
       }
+      setTimeout(() => {
+        this.nextFloors.map(el => {
+          console.log(`
+            Floor: ${el.floor},
+            Direction: ${el.direction},
+            hasPassed: ${el.hasPassed}
+          `)
+        })
+        console.log(`..................`)
+        console.log(`Elev Direction: ${this.direction}`)
+      }, 20)
     },
     openFirstFloor() {
       this.toggleElevCalled(true)

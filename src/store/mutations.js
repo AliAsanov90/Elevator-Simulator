@@ -17,6 +17,8 @@ export default {
     if (!direction) {
       const IsFloorNotHighest = state.nextFloors.some(el => el.floor > floor)
       direction = IsFloorNotHighest ? 'down' : 'up'
+      if (floor === 1) direction = 'up'
+      if (floor === 5) direction = 'down'
     }
 
     // Exclude Initial floor from array
