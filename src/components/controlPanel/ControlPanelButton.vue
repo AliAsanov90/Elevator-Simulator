@@ -23,7 +23,8 @@ export default {
       highlightButton: false,
       timeDoorClose: 4700,
       timeDefineHasPassed: 10,
-      timeDefineElevOffset: 5
+      timeDefineElevOffset: 5,
+      directionCalled: ''
     }
   },
   computed: {
@@ -53,7 +54,13 @@ export default {
         this.highlightButton = false
       }
     },
+    defineDirection() {
+      this.directionCalled = this.floor >= this.elevPosition ? 'up' : 'down'
+      if (this.floor === 1) this.directionCalled = 'up'
+      if (this.floor === 5) this.directionCalled = 'down'
+    },
     callElevator() {
+      this.defineDirection()
       this.toggleElevCalled(true)
       this.defineHasPassed()
       this.highlightButton = true
@@ -84,17 +91,17 @@ export default {
     },
     addFloorAfterDoorClosed() {
       setTimeout(() => {
-        this.addCurrentFloor({ floor: this.floor, hasPassed: this.hasPassed })
+        this.addCurrentFloor({ floor: this.floor, direction: this.directionCalled, hasPassed: this.hasPassed })
       }, this.timeDoorClose)
     },
     addFloor() {
       setTimeout(() => {
-        this.addCurrentFloor({ floor: this.floor, hasPassed: this.hasPassed })
+        this.addCurrentFloor({ floor: this.floor, direction: this.directionCalled, hasPassed: this.hasPassed })
       }, this.timeDefineHasPassed)
     },
     defineHasPassed() {
       setTimeout(() => {
-        this.ifPassedRequest({ floor: this.floor })
+        this.ifPassedRequest({ floor: this.floor, direction: this.directionCalled })
       }, this.timeDefineElevOffset)
     }
   }

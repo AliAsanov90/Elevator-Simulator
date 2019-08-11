@@ -34,11 +34,12 @@ export default {
     ...mapState([
       'elevPositionOnStop',
       'nextFloors',
-      'isElevCalled'
+      'isElevCalled',
+      'elevStopped'
     ])
   },
   watch: {
-    elevPositionOnStop() {
+    elevStopped() {
       if (this.floorNum === this.elevPositionOnStop) {
         this.openDoors = true
         this.closeDoors()

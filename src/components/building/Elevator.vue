@@ -26,13 +26,15 @@ export default {
     ...mapState([
       'nextFloors',
       'elevPosition',
-      'isElevCalled'
+      'isElevCalled',
+      'prevFloor',
+      'elevStopped'
     ]),
     ...mapGetters([
       'prevNextDifference'
     ]),
     calcBottom() {
-      this.removeSameAdjacentFloor()
+      // this.removeSameAdjacentFloor()
       return (this.nextFloors[0].floor - 1) + '00px'
     }
   },
@@ -43,7 +45,10 @@ export default {
       'getElevPosition',
       'toggleElevCalled',
       'ifPassedRequest',
-      'getElevPositionOnStop'
+      'getElevPositionOnStop',
+      //
+      'deleteCurrentFloor',
+      'didElevStop'
     ]),
     removeSameAdjacentFloor() {
       const floorNumbers = this.nextFloors.map(el => el.floor)
@@ -68,6 +73,18 @@ export default {
     },
     onElevatorStop(e) {
       this.getElevPositionOnStop(this.elevPosition)
+      this.didElevStop(true)
+      // this.getElevPosition(this.$el.offsetTop)
+      // setTimeout(() => {
+      // }, 100)
+      // console.log(this.elevPosition)
+      // if (this.elevPosition === 5) {
+      //   this.defineDirection('down')
+      // }
+      //
+      // if (this.prevFloor.floor === this.nextFloors[0].floor) {
+      //   this.deleteCurrentFloor()
+      // }
       if (this.nextFloors[0].direction !== '') {
         this.goToNextAfterDoorClosed()
       } else if (this.nextFloors[0].direction === '') {
@@ -75,9 +92,9 @@ export default {
       }
     },
     onElevatorStart(e) {
+      this.didElevStop(false)
       setInterval(() => {
         this.getElevPosition(this.$el.offsetTop)
-        this.ifPassedRequest(1)
       }, this.intervalCheckElev)
       this.defineDirection()
     }

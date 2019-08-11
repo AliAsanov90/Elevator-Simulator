@@ -15,5 +15,6 @@ export default {
   elevPosition: 1,
   elevPositionOnStop: 0,
   isElevCalled: false,
-  isDoorClosed: true
+  isDoorClosed: true,
+  elevStopped: false
 }

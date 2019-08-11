@@ -22,5 +22,12 @@ export default {
   },
   doorClosed: ({ commit }, payload) => {
     commit('doorClosed', payload)
+  },
+  //
+  deleteCurrentFloor: ({ commit }) => {
+    commit('deleteCurrentFloor')
+  },
+  didElevStop: ({ commit }, payload) => {
+    commit('didElevStop', payload)
   }
 }
