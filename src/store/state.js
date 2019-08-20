@@ -7,7 +7,7 @@ export default {
   },
   nextFloors: [{
     floor: 1,
-    direction: '',
+    direction: 'up',
     hasPassed: false
   }],
   direction: 'up', // current elev direction

@@ -1,15 +1,17 @@
 /* eslint-disable */
 export default {
   addNextFloor: (state, { floor, direction = null, hasPassed }) => {
-    // Exclude Initial floor from array
-    const withoutInitialFloor = state.nextFloors.filter(el => el.direction !== '')
+    // Delete current floor from array
+    if (state.elevStopped && state.isDoorClosed && state.nextFloors.length === 1) {
+      state.nextFloors.length = 0
+    }
 
     // Filter the old array into 3 separate arrays
-    const firstPart = withoutInitialFloor
+    const firstPart = state.nextFloors
       .filter(el => (el.direction === state.direction) && (el.hasPassed === false))
-    const secondPart = withoutInitialFloor
+    const secondPart = state.nextFloors
       .filter(el => (el.direction !== state.direction))
-    const thirdPart = withoutInitialFloor
+    const thirdPart = state.nextFloors
       .filter(el => (el.direction === state.direction) && (el.hasPassed === true))
 
     // Add new request to proper array, sort, and combine parts
