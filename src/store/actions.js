@@ -29,5 +29,8 @@ export default {
   },
   didElevStop: ({ commit }, payload) => {
     commit('didElevStop', payload)
+  },
+  deleteFloor: ({ commit }) => {
+    commit('deleteFloor')
   }
 }

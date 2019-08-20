@@ -40,7 +40,9 @@ export default {
   },
   watch: {
     elevPositionOnStop() {
-      this.stopHighlightButton()
+      if (this.elevPositionOnStop === this.floor) {
+        this.highlightButton = false
+      }
     }
   },
   methods: {
@@ -49,11 +51,6 @@ export default {
       'ifPassedRequest',
       'toggleElevCalled'
     ]),
-    stopHighlightButton() {
-      if (this.elevPositionOnStop === this.floor) {
-        this.highlightButton = false
-      }
-    },
     defineDirection() {
       this.directionCalled = this.floor >= this.elevPosition ? 'up' : 'down'
       if (this.floor === 1) this.directionCalled = 'up'
@@ -91,17 +88,28 @@ export default {
     },
     addFloorAfterDoorClosed() {
       setTimeout(() => {
-        this.addCurrentFloor({ floor: this.floor, direction: this.directionCalled, hasPassed: this.hasPassed })
+        this.addCurrentFloor({
+          floor: this.floor,
+          direction: this.directionCalled,
+          hasPassed: this.hasPassed
+        })
       }, this.timeDoorClose)
     },
     addFloor() {
       setTimeout(() => {
-        this.addCurrentFloor({ floor: this.floor, direction: this.directionCalled, hasPassed: this.hasPassed })
+        this.addCurrentFloor({
+          floor: this.floor,
+          direction: this.directionCalled,
+          hasPassed: this.hasPassed
+        })
       }, this.timeDefineHasPassed)
     },
     defineHasPassed() {
       setTimeout(() => {
-        this.ifPassedRequest({ floor: this.floor, direction: this.directionCalled })
+        this.ifPassedRequest({
+          floor: this.floor,
+          direction: this.directionCalled
+        })
       }, this.timeDefineElevOffset)
     }
   }

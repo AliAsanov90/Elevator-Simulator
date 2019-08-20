@@ -10,19 +10,25 @@ export default {
     //   }
     // }
     // So that difference between previous and next floor in not 0
-    if (state.nextFloors[0].direction === '') {
-      state.prevFloor.floor = 1
-    }
+    // if (state.nextFloors[0].direction === '') {
+    //   state.prevFloor.floor = 1
+    // }
 
     // DON'T ADD same floors
-    const doesAlreadyExist = state.nextFloors.find(el => floor === el.floor)
-    if (doesAlreadyExist) return
+    // const doesAlreadyExist = state.nextFloors.find(el => floor === el.floor)
+    // if (doesAlreadyExist) return
     //
 
     // Fix bug
-    if (state.prevFloor.floor === floor && state.nextFloors[0].direction !== '') {
-      state.nextFloors[0].hasPassed = false
-    }
+    // if (state.prevFloor.floor === floor && state.nextFloors[0].direction !== '') {
+    //   state.nextFloors[0].hasPassed = false
+    // }
+
+
+    // ***************************************************************************************************
+    // if (state.elevStopped && state.nextFloors.length === 1) {
+    //   state.nextFloors.splice(0, 1)
+    // }
 
     // Exclude Initial floor from array
     const withoutInitialFloor = state.nextFloors.filter(el => el.direction !== '')
@@ -71,19 +77,10 @@ export default {
     }
   },
   removeCurrFloor: (state, { floor, direction, hasPassed }) => {
-    const deleteVisitedFloor = () => {
-      if (state.nextFloors.length) {
-        state.nextFloors = state.nextFloors.slice(1)
-      }
-    }
-    const addDefaultFloor = () => {
-      if (!state.nextFloors.length) {
-        state.nextFloors = [{ floor: 1, direction: '', hasPassed: false }]
-      }
-    }
     state.prevFloor = { floor, direction, hasPassed }
-    deleteVisitedFloor()
-    addDefaultFloor()
+    if (state.nextFloors.length > 1) {
+      state.nextFloors = [...state.nextFloors].slice(1)
+    }
   },
   getElevPosition: (state, offset) => {
     if (offset >= -2 && offset < 98) state.elevPosition = 5
@@ -94,7 +91,7 @@ export default {
   },
   ifPassedRequest: (state, { floor, direction }) => {
     if (((state.direction === 'up') && (direction === 'up') && (floor < state.elevPosition)) ||
-      ((state.direction === 'down') && (direction === 'down') && (floor > state.elevPosition))) {
+      ((state.direction === 'down') && (direction === 'down') && (floor >= state.elevPosition))) {
       state.hasPassed = true
     } else {
       state.hasPassed = false
@@ -112,7 +109,7 @@ export default {
   },
   getElevPositionOnStop: (state, elevPosition) => {
     state.elevPositionOnStop = elevPosition
-    console.log(elevPosition)
+    // console.log(elevPosition)
   },
   doorClosed: (state, boolean) => {
     state.isDoorClosed = boolean
@@ -123,5 +120,8 @@ export default {
   },
   didElevStop: (state, boolean) => {
     state.elevStopped = boolean
+  },
+  deleteFloor: state => {
+    state.nextFloors.slice(1)
   }
 }

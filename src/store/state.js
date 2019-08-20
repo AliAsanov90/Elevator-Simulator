@@ -13,8 +13,8 @@ export default {
   direction: 'up', // current elev direction
   hasPassed: false, // whether elev has passed the floor that's being added to the order
   elevPosition: 1,
-  elevPositionOnStop: 0,
+  elevPositionOnStop: 1,
   isElevCalled: false,
   isDoorClosed: true,
-  elevStopped: false
+  elevStopped: true
 }

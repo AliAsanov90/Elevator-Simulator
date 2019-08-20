@@ -47,11 +47,12 @@ export default {
     ])
   },
   watch: {
-    elevStopped() {
+    elevPositionOnStop() {
       if (this.elevPositionOnStop === this.floorNum) {
         if (this.floorNum === 1) this.clickedUp = false
         if (this.floorNum === 5) this.clickedDown = false
-        if (this.nextFloors.filter(el => el.floor === this.floorNum).length > 1) {
+        if ((this.nextFloors.filter(el => el.floor === this.floorNum).length > 1) &&
+          (this.nextFloors[0].floor !== this.nextFloors[1].floor)) {
           this.direction === 'up' ? this.clickedUp = false : this.clickedDown = false
         } else {
           this.clickedUp = false
@@ -59,24 +60,32 @@ export default {
         }
       }
     }
+    // nextFloors() {
+    //   if (this.prevFloor.floor === this.nextFloors[0].floor) {
+    //     console.log(`i'm here!!!!!!!!!!!!!!!!!!!!`)
+    //     this.removeFloor(this.nextFloors[0])
+    //   }
+    // }
   },
   methods: {
     ...mapActions([
       'addCurrentFloor',
       'ifPassedRequest',
       'toggleElevCalled',
-      'defineDirection'
+      'defineDirection',
+      'removeFloor'
     ]),
     callElevator(direction) {
-      this.toggleElevCalled(true)
+      // this.toggleElevCalled(true)
       this.defineDirection()
       this.defineHasPassed(direction)
       this.highlightButton(direction)
-      if ((this.floorNum === 1) && (this.prevFloor.floor === 1) && (this.elevPosition === 1)) {
-        this.openFirstFloor()
+      if (this.elevStopped && (this.floorNum === this.elevPositionOnStop)) {
+        this.toggleElevCalled(true)
+        direction === 'up' ? this.clickedUp = false : this.clickedDown = false
         return
       }
-      if (!this.isDoorClosed && (this.elevPosition === 1)) {
+      if (!this.isDoorClosed) {
         this.addFloorAfterDoorClosed(direction)
       } else {
         this.addFloor(direction)
@@ -90,15 +99,14 @@ export default {
           `)
         })
         console.log(`..................`)
-        console.log(`Elev Direction: ${this.direction}`)
+        console.log(`Elev Position: ${this.elevPosition}`)
+        console.log(`ElevPositionOnStop: ${this.elevPositionOnStop}`)
+        console.log(`Elev Stopped: ${this.elevStopped}`)
+        // console.log(`Elev Direction: ${this.direction}`)
       }, 20)
     },
     highlightButton(direction) {
       direction === 'up' ? this.clickedUp = true : this.clickedDown = true
-    },
-    openFirstFloor() {
-      this.toggleElevCalled(true)
-      this.clickedUp = false
     },
     addFloorAfterDoorClosed(direction) {
       setTimeout(() => {

@@ -2,14 +2,13 @@
   <div class="doors">
     <div
       class="door"
-      :class="{ 'door-opened': openDoors }"
-      @transitionend="onDoorClose"
+      :class="{ 'door-opened': shouldOpenDoors }"
+      @transitionstart="onDoorOpenClose"
     >
     </div>
     <div
       class="door"
-      :class="{ 'door-opened': openDoors }"
-      @transitionstart="onDoorOpen"
+      :class="{ 'door-opened': shouldOpenDoors }"
     >
     </div>
   </div>
@@ -24,7 +23,7 @@ export default {
   },
   data() {
     return {
-      openDoors: false,
+      shouldOpenDoors: false,
       timeDoorsOpen: 4000,
       timeWaitAddFloor: 100,
       timeWaitDoorClose: 1000
@@ -32,23 +31,25 @@ export default {
   },
   computed: {
     ...mapState([
+      'elevPosition',
       'elevPositionOnStop',
       'nextFloors',
       'isElevCalled',
-      'elevStopped'
+      'elevStopped',
+      'prevFloor'
     ])
   },
   watch: {
-    elevStopped() {
+    elevPositionOnStop() {
       if (this.floorNum === this.elevPositionOnStop) {
-        this.openDoors = true
+        this.shouldOpenDoors = true
         this.closeDoors()
       }
-      this.dontOpenOnDefaultFloor()
     },
     isElevCalled() {
-      if (this.isElevCalled) {
-        this.openOnFirstFloor()
+      if (this.isElevCalled && this.elevStopped && this.floorNum === this.elevPosition) {
+        this.shouldOpenDoors = true
+        this.closeDoors()
       }
     }
   },
@@ -58,32 +59,16 @@ export default {
     ]),
     closeDoors() {
       setTimeout(() => {
-        this.openDoors = false
+        this.shouldOpenDoors = false
       }, this.timeDoorsOpen)
     },
-    dontOpenOnDefaultFloor() {
-      if (this.nextFloors[0].direction === '') {
-        this.openDoors = false
-      }
-    },
-    openOnFirstFloor() {
-      setTimeout(() => {
-        if ((this.floorNum === 1) && (this.nextFloors[0].floor === 1)) {
-          this.openDoors = true
-          this.closeDoors()
-        }
-      }, this.timeWaitAddFloor)
-    },
-    onDoorClose() {
-      if (!this.openDoors) {
+    onDoorOpenClose() {
+      if (this.shouldOpenDoors) {
+        this.doorClosed(false)
+      } else {
         setTimeout(() => {
           this.doorClosed(true)
         }, this.timeWaitDoorClose)
-      }
-    },
-    onDoorOpen() {
-      if (this.openDoors) {
-        this.doorClosed(false)
       }
     }
   }
