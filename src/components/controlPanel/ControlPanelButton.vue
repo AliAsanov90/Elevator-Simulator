@@ -35,7 +35,8 @@ export default {
       'elevPositionOnStop',
       'isDoorClosed',
       'nextFloors',
-      'direction'
+      'direction',
+      'elevStopped  '
     ])
   },
   watch: {
@@ -57,15 +58,16 @@ export default {
       if (this.floor === 5) this.directionCalled = 'down'
     },
     callElevator() {
+      // this.toggleElevCalled(true)
       this.defineDirection()
-      this.toggleElevCalled(true)
       this.defineHasPassed()
       this.highlightButton = true
-      if ((this.floor === 1) && (this.prevFloor.floor === 1) && (this.elevPosition === 1)) {
-        this.openFirstFloor()
+      if (this.elevStopped && (this.floor === this.elevPositionOnStop)) {
+        this.toggleElevCalled(true)
+        this.highlightButton = false
         return
       }
-      if (!this.isDoorClosed && (this.elevPosition === 1)) {
+      if (!this.isDoorClosed) {
         this.addFloorAfterDoorClosed()
       } else {
         this.addFloor()
@@ -81,10 +83,6 @@ export default {
         console.log(`..................`)
         console.log(`Elev Direction: ${this.direction}`)
       }, 20)
-    },
-    openFirstFloor() {
-      this.toggleElevCalled(true)
-      this.highlightButton = false
     },
     addFloorAfterDoorClosed() {
       setTimeout(() => {

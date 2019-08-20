@@ -110,17 +110,28 @@ export default {
     },
     addFloorAfterDoorClosed(direction) {
       setTimeout(() => {
-        this.addCurrentFloor({ direction, floor: this.floorNum, hasPassed: this.hasPassed })
+        this.addCurrentFloor({
+          direction,
+          floor: this.floorNum,
+          hasPassed: this.hasPassed
+        })
       }, this.timeDoorClose)
     },
     addFloor(direction) {
       setTimeout(() => {
-        this.addCurrentFloor({ direction, floor: this.floorNum, hasPassed: this.hasPassed })
+        this.addCurrentFloor({
+          direction,
+          floor: this.floorNum,
+          hasPassed: this.hasPassed
+        })
       }, this.timeDefineHasPassed)
     },
     defineHasPassed(direction) {
       setTimeout(() => {
-        this.ifPassedRequest({ floor: this.floorNum, direction })
+        this.ifPassedRequest({
+          floor: this.floorNum,
+          direction
+        })
       }, this.timeDefineElevOffset)
     }
   }
