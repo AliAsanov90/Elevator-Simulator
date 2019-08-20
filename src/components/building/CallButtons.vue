@@ -76,9 +76,7 @@ export default {
       if (this.elevStopped && (this.floorNum === this.elevPositionOnStop)) {
         this.toggleElevCalled(true)
         direction === 'up' ? this.clickedUp = false : this.clickedDown = false
-        return
-      }
-      if (!this.isDoorClosed) {
+      } else if (!this.isDoorClosed && this.elevPosition === 1) {
         this.addFloorAfterDoorClosed(direction)
       } else {
         this.addFloor(direction)

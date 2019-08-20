@@ -68,17 +68,17 @@ export default {
         this.getElevPosition(this.$el.offsetTop)
       }, this.intervalCheckElev)
       this.defineDirection()
-    }
-  },
-  goToNextAfterDoorClosed() {
-    setTimeout(() => {
+    },
+    goToNextAfterDoorClosed() {
+      setTimeout(() => {
+        this.removeFloor(this.nextFloors[0])
+        this.defineDirection()
+      }, this.timeWaitDoors)
+    },
+    goToNextFloor() {
       this.removeFloor(this.nextFloors[0])
       this.defineDirection()
-    }, this.timeWaitDoors)
-  },
-  goToNextFloor() {
-    this.removeFloor(this.nextFloors[0])
-    this.defineDirection()
+    }
   },
   watch: {
     isElevCalled() {
