@@ -60,12 +60,6 @@ export default {
         }
       }
     }
-    // nextFloors() {
-    //   if (this.prevFloor.floor === this.nextFloors[0].floor) {
-    //     console.log(`i'm here!!!!!!!!!!!!!!!!!!!!`)
-    //     this.removeFloor(this.nextFloors[0])
-    //   }
-    // }
   },
   methods: {
     ...mapActions([
@@ -76,7 +70,6 @@ export default {
       'removeFloor'
     ]),
     callElevator(direction) {
-      // this.toggleElevCalled(true)
       this.defineDirection()
       this.defineHasPassed(direction)
       this.highlightButton(direction)
@@ -102,7 +95,6 @@ export default {
         console.log(`Elev Position: ${this.elevPosition}`)
         console.log(`ElevPositionOnStop: ${this.elevPositionOnStop}`)
         console.log(`Elev Stopped: ${this.elevStopped}`)
-        // console.log(`Elev Direction: ${this.direction}`)
       }, 20)
     },
     highlightButton(direction) {

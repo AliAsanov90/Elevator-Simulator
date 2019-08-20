@@ -50,15 +50,6 @@ export default {
       'deleteSameFloor'
     ]),
     removeSameAdjacentFloor() {
-      // const floorNumbers = this.nextFloors.map(el => el.floor)
-      // const len = this.nextFloors.length
-      // if (len > 1) {
-      //   for (let i = 0; i < len; i++) {
-      //     if (floorNumbers[i] === floorNumbers[i + 1]) {
-      //       this.removeFloor(this.nextFloors[i])
-      //     }
-      //   }
-      // }
       if (this.nextFloors.length > 1) {
         if ((this.nextFloors[0].floor === this.nextFloors[1].floor) &&
           (this.nextFloors[0].direction === this.nextFloors[1].direction)) {
@@ -66,35 +57,10 @@ export default {
         }
       }
     },
-    goToNextAfterDoorClosed() {
-      setTimeout(() => {
-        this.removeFloor(this.nextFloors[0])
-        this.defineDirection()
-      }, this.timeWaitDoors)
-    },
-    goToNextFloor() {
-      this.removeFloor(this.nextFloors[0])
-      this.defineDirection()
-    },
     onElevatorStop(e) {
       this.getElevPositionOnStop(this.elevPosition)
       this.didElevStop(true)
-      // this.getElevPosition(this.$el.offsetTop)
-      // setTimeout(() => {
-      // }, 100)
-      // console.log(this.elevPosition)
-      // if (this.elevPosition === 5) {
-      //   this.defineDirection('down')
-      // }
-      //
-      // if (this.prevFloor.floor === this.nextFloors[0].floor) {
-      //   this.deleteCurrentFloor()
-      // }
-      // if (this.nextFloors[0].direction !== '') {
       this.goToNextAfterDoorClosed()
-      // } else if (this.nextFloors[0].direction === '') {
-      //   this.goToNextFloor()
-      // }
     },
     onElevatorStart(e) {
       this.didElevStop(false)
@@ -103,6 +69,16 @@ export default {
       }, this.intervalCheckElev)
       this.defineDirection()
     }
+  },
+  goToNextAfterDoorClosed() {
+    setTimeout(() => {
+      this.removeFloor(this.nextFloors[0])
+      this.defineDirection()
+    }, this.timeWaitDoors)
+  },
+  goToNextFloor() {
+    this.removeFloor(this.nextFloors[0])
+    this.defineDirection()
   },
   watch: {
     isElevCalled() {

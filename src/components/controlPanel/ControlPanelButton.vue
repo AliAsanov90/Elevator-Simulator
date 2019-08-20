@@ -58,7 +58,6 @@ export default {
       if (this.floor === 5) this.directionCalled = 'down'
     },
     callElevator() {
-      // this.toggleElevCalled(true)
       this.defineDirection()
       this.defineHasPassed()
       this.highlightButton = true

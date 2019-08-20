@@ -1,35 +1,6 @@
 /* eslint-disable */
 export default {
   addNextFloor: (state, { floor, direction = null, hasPassed }) => {
-    // Helper Function
-    // const sortFunc = (a, b) => {
-    //   if (direction === 'up') {
-    //     return a.floor - b.floor
-    //   } else if (direction === 'down') {
-    //     return b.floor - a.floor
-    //   }
-    // }
-    // So that difference between previous and next floor in not 0
-    // if (state.nextFloors[0].direction === '') {
-    //   state.prevFloor.floor = 1
-    // }
-
-    // DON'T ADD same floors
-    // const doesAlreadyExist = state.nextFloors.find(el => floor === el.floor)
-    // if (doesAlreadyExist) return
-    //
-
-    // Fix bug
-    // if (state.prevFloor.floor === floor && state.nextFloors[0].direction !== '') {
-    //   state.nextFloors[0].hasPassed = false
-    // }
-
-
-    // ***************************************************************************************************
-    // if (state.elevStopped && state.nextFloors.length === 1) {
-    //   state.nextFloors.splice(0, 1)
-    // }
-
     // Exclude Initial floor from array
     const withoutInitialFloor = state.nextFloors.filter(el => el.direction !== '')
 
@@ -109,7 +80,6 @@ export default {
   },
   getElevPositionOnStop: (state, elevPosition) => {
     state.elevPositionOnStop = elevPosition
-    // console.log(elevPosition)
   },
   doorClosed: (state, boolean) => {
     state.isDoorClosed = boolean
@@ -118,7 +88,6 @@ export default {
     state.elevStopped = boolean
   },
   deleteSameFloor: state => {
-    console.log(`i'm here!!!!!!!!!!!!!!`)
     state.nextFloors = [...state.nextFloors].slice(1)
   }
 }
