@@ -114,14 +114,11 @@ export default {
   doorClosed: (state, boolean) => {
     state.isDoorClosed = boolean
   },
-  //
-  deleteCurrentFloor: state => {
-    state.nextFloors = [...state.nextFloors].slice(1)
-  },
   didElevStop: (state, boolean) => {
     state.elevStopped = boolean
   },
-  deleteFloor: state => {
-    state.nextFloors.slice(1)
+  deleteSameFloor: state => {
+    console.log(`i'm here!!!!!!!!!!!!!!`)
+    state.nextFloors = [...state.nextFloors].slice(1)
   }
 }

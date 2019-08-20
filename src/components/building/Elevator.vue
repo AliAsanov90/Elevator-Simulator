@@ -46,10 +46,8 @@ export default {
       'toggleElevCalled',
       'ifPassedRequest',
       'getElevPositionOnStop',
-      //
-      'deleteCurrentFloor',
       'didElevStop',
-      'deleteFloor'
+      'deleteSameFloor'
     ]),
     removeSameAdjacentFloor() {
       // const floorNumbers = this.nextFloors.map(el => el.floor)
@@ -62,8 +60,9 @@ export default {
       //   }
       // }
       if (this.nextFloors.length > 1) {
-        if (this.nextFloors[0].floor === this.nextFloors[1].floor) {
-          this.deleteFloor()
+        if ((this.nextFloors[0].floor === this.nextFloors[1].floor) &&
+          (this.nextFloors[0].direction === this.nextFloors[1].direction)) {
+          this.deleteSameFloor()
         }
       }
     },
