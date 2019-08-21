@@ -89,7 +89,7 @@ export default {
   didElevStop: (state, boolean) => {
     state.elevStopped = boolean
   },
-  deleteSameFloor: state => {
-    state.nextFloors = [...state.nextFloors].slice(1)
+  deleteSameFloor: (state, index = 0)=> {
+    state.nextFloors.splice(index, 1)
   }
 }

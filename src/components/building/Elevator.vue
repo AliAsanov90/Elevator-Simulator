@@ -34,7 +34,6 @@ export default {
       'prevNextDifference'
     ]),
     calcBottom() {
-      this.removeSameAdjacentFloor()
       return (this.nextFloors[0].floor - 1) + '00px'
     }
   },
@@ -51,8 +50,7 @@ export default {
     ]),
     removeSameAdjacentFloor() {
       if (this.nextFloors.length > 1) {
-        if ((this.nextFloors[0].floor === this.nextFloors[1].floor) &&
-          (this.nextFloors[0].direction === this.nextFloors[1].direction)) {
+        if ((this.nextFloors[0].floor === this.nextFloors[1].floor) && this.nextFloors.length > 2) {
           this.deleteSameFloor()
         }
       }
@@ -87,6 +85,9 @@ export default {
         this.toggleElevCalled(false)
       }
     }
+  },
+  updated() {
+    this.removeSameAdjacentFloor()
   }
 }
 </script>

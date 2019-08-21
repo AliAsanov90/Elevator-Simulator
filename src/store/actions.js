@@ -26,7 +26,7 @@ export default {
   didElevStop: ({ commit }, payload) => {
     commit('didElevStop', payload)
   },
-  deleteSameFloor: ({ commit }) => {
-    commit('deleteSameFloor')
+  deleteSameFloor: ({ commit }, index) => {
+    commit('deleteSameFloor', index)
   }
 }
