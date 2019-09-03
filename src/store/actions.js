@@ -1,6 +1,12 @@
 export default {
-  addCurrentFloor: ({ commit }, payload) => {
-    commit('addNextFloor', payload)
+  addCurrentFloor: ({ state, commit }, payload) => {
+    if (!state.isDoorClosed) {
+      setTimeout(() => {
+        commit('addNextFloor', payload)
+      }, 5000)
+    } else {
+      commit('addNextFloor', payload)
+    }
   },
   defineDirection: ({ commit }) => {
     commit('setDirection')
