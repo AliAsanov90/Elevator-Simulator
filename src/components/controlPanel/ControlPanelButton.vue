@@ -71,17 +71,6 @@ export default {
       } else {
         this.addFloor()
       }
-      setTimeout(() => {
-        this.nextFloors.map(el => {
-          console.log(`
-            Floor: ${el.floor},
-            Direction: ${el.direction},
-            hasPassed: ${el.hasPassed}
-          `)
-        })
-        console.log(`..................`)
-        console.log(`Elev Direction: ${this.direction}`)
-      }, 20)
     },
     addFloorAfterDoorClosed() {
       setTimeout(() => {

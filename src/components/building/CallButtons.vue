@@ -51,6 +51,7 @@ export default {
       if (this.elevPositionOnStop === this.floorNum) {
         if (this.floorNum === 1) this.clickedUp = false
         if (this.floorNum === 5) this.clickedDown = false
+
         if ((this.nextFloors.filter(el => el.floor === this.floorNum).length > 1) &&
           (this.nextFloors[0].floor !== this.nextFloors[1].floor)) {
           this.direction === 'up' ? this.clickedUp = false : this.clickedDown = false
@@ -81,19 +82,6 @@ export default {
       } else {
         this.addFloor(direction)
       }
-      setTimeout(() => {
-        this.nextFloors.map(el => {
-          console.log(`
-            Floor: ${el.floor},
-            Direction: ${el.direction},
-            hasPassed: ${el.hasPassed}
-          `)
-        })
-        console.log(`..................`)
-        console.log(`Elev Position: ${this.elevPosition}`)
-        console.log(`ElevPositionOnStop: ${this.elevPositionOnStop}`)
-        console.log(`Elev Stopped: ${this.elevStopped}`)
-      }, 20)
     },
     highlightButton(direction) {
       direction === 'up' ? this.clickedUp = true : this.clickedDown = true

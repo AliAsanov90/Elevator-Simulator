@@ -34,6 +34,7 @@ export default {
       'prevNextDifference'
     ]),
     calcBottom() {
+      if (!this.nextFloors.length) return
       return (this.nextFloors[0].floor - 1) + '00px'
     }
   },

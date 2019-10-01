@@ -2,13 +2,13 @@
   <div class="doors">
     <div
       class="door"
-      :class="{ 'door-opened': shouldOpenDoors }"
-      @transitionstart="onDoorOpenClose"
+      :class="{ 'door-opened': canOpenDoors }"
+      @transitionstart="onDoorToggle"
     >
     </div>
     <div
       class="door"
-      :class="{ 'door-opened': shouldOpenDoors }"
+      :class="{ 'door-opened': canOpenDoors }"
     >
     </div>
   </div>
@@ -23,7 +23,7 @@ export default {
   },
   data() {
     return {
-      shouldOpenDoors: false,
+      canOpenDoors: false,
       timeDoorsOpen: 4000,
       timeWaitAddFloor: 100,
       timeWaitDoorClose: 1000
@@ -41,14 +41,14 @@ export default {
   },
   watch: {
     elevPositionOnStop() {
-      if (this.floorNum === this.elevPositionOnStop) {
-        this.shouldOpenDoors = true
+      if ((this.floorNum === this.elevPositionOnStop) && this.elevStopped) {
+        this.canOpenDoors = true
         this.closeDoors()
       }
     },
     isElevCalled() {
       if (this.isElevCalled && this.elevStopped && this.floorNum === this.elevPosition) {
-        this.shouldOpenDoors = true
+        this.canOpenDoors = true
         this.closeDoors()
       }
     }
@@ -59,11 +59,11 @@ export default {
     ]),
     closeDoors() {
       setTimeout(() => {
-        this.shouldOpenDoors = false
+        this.canOpenDoors = false
       }, this.timeDoorsOpen)
     },
-    onDoorOpenClose() {
-      if (this.shouldOpenDoors) {
+    onDoorToggle() {
+      if (this.canOpenDoors) {
         this.doorClosed(false)
       } else {
         setTimeout(() => {
