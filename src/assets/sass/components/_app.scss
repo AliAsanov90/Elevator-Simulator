@@ -1,13 +1,16 @@
 #app {
+  width: 100%;
+  height: 100%;
   margin: 0;
-  margin-top: 100px;
+  padding-top: 100px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: flex-end;
 
   .ground {
-    width: 100vw;
-    height: 100px;
+    align-self: stretch;
+    width: 100%;
     background: linear-gradient(#7AC978 50%, #A8DEA6);
     z-index: 1;
   }
